@@ -1,0 +1,13 @@
+{
+  "name": "MTGBot",
+  "description": "Discord bot for everything MTG",
+  "author": "Liam Benson <l2benson@uwaterloo.ca>",
+  "contributors": [],
+  "dependencies": [
+    "discord.js",
+    "request",
+    "cheerio",
+    "dotenv"
+  ],
+  "version": "0.0.0"
+}
