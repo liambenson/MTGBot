@@ -6,7 +6,7 @@ function asyncOrder (functions, callback) {
         functions[i].call(this, function (i, returnValue) {
             returns[i] = returnValue;
             if (++counter == functions.length) callback(returns);
-        });
+        }, i);
     }
 }
 
