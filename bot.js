@@ -27,7 +27,6 @@ bot.on('message', function (msg) {
     if (msg.content.search(/^<<.+>> *( +\!(\w)+)*$/) != -1) {
         var messageContents = msg.content.match(/^<<(.+)>>(.*)$/);
         var cardName = messageContents[1];
-        console.log(messageContents[2]);
         var userParams = messageContents[2].split(/ +\!/g).slice(1);
         var unrecognizedParams = [];
         var params = {
