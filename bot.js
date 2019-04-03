@@ -24,9 +24,11 @@ function displayHelp (channel) {
 }
 
 bot.on('message', function (msg) {
-    if (msg.content.search(/^<<(\w| |\.|"|,|\!)+>> *( +\!(\w)+)*$/) != -1) {
-        var cardName = msg.content.match(/<<((?:\w| |\.|"|,|\!)+)>>/)[1];
-        var userParams = msg.content.split(/ +\!/g).slice(1);
+    if (msg.content.search(/^<<.+>> *( +\!(\w)+)*$/) != -1) {
+        var messageContents = msg.content.match(/^<<(.+)>>(.*)$/);
+        var cardName = messageContents[1];
+        console.log(messageContents[2]);
+        var userParams = messageContents[2].split(/ +\!/g).slice(1);
         var unrecognizedParams = [];
         var params = {
             noImage: false,
@@ -102,7 +104,7 @@ bot.on('message', function (msg) {
             }
 
             helper.asyncOrder(toDo, function (messages) {
-                msg.channel.sendMessage(messages.join('\n'));
+                msg.channel.sendMessage(messages.join('\n'), {split: true});
             });
         });
     } else if (msg.content.search(/^ *\!mtgbot *$/i) != -1) {
