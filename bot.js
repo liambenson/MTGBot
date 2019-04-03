@@ -10,8 +10,21 @@ bot.on('ready', function () {
     console.log('MTGBot online!');
 });
 
+function displayHelp (channel) {
+    var lines = [
+        'Usage:',
+        '    <<Card Name>> OPTIONS',
+        '    OPTIONS should be a list of options separated by spaces',
+        'Available options:',
+        '    !sets: displays the sets this card was printed in',
+        '    !noImage: don\'t send the image of the card',
+        '    !rulings: displays the card\'s associated rulings',
+    ];
+    channel.sendMessage(lines.join('\n'));
+}
+
 bot.on('message', function (msg) {
-    if (msg.content.search(/^<<(\w| |\.|"|,|\!)+>>( +\!(\w)+)*$/) != -1) {
+    if (msg.content.search(/^<<(\w| |\.|"|,|\!)+>> *( +\!(\w)+)*$/) != -1) {
         var cardName = msg.content.match(/<<((?:\w| |\.|"|,|\!)+)>>/)[1];
         var userParams = msg.content.split(/ +\!/g).slice(1);
         var unrecognizedParams = [];
@@ -92,6 +105,8 @@ bot.on('message', function (msg) {
                 msg.channel.sendMessage(messages.join('\n'));
             });
         });
+    } else if (msg.content.search(/^ *\!mtgbot *$/i) != -1) {
+        displayHelp(msg.channel);
     }
 });
 
